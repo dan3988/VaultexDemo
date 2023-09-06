@@ -1,0 +1,33 @@
+﻿@page "{id}"
+@model OrganisationModel
+
+<div id="grid" class="d-grid gap-2">
+	<div class="grid-full input-group">
+		<span class="input-group-text">Organisation Number</span>
+		<input class="form-control" readonly value="@Model.Value.OrganisationNumber" />
+	</div>
+	<div class="grid-full input-group">
+		<span class="input-group-text">Organisation Name</span>
+		<input class="form-control" readonly value="@Model.Value.OrganisationName" />
+	</div>
+	<div class="grid-left input-group">
+		<span class="input-group-text">Town</span>
+		<input class="form-control" readonly value="@Model.Value.Town" />
+	</div>
+	<div class="grid-right input-group">
+		<span class="input-group-text">Postcode</span>
+		<input class="form-control" readonly value="@Model.Value.Postcode" />
+	</div>
+	<div class="grid-full input-group">
+		<span class="input-group-text">Address Line 1</span>
+		<input class="form-control" readonly value="@Model.Value.AddressLine1" />
+	</div>
+	<div class="grid-full input-group">
+		<span class="input-group-text">Address Line 2</span>
+		<input class="form-control" readonly value="@Model.Value.AddressLine2" />
+	</div>
+	<div class="grid-full input-group">
+		<span class="input-group-text">Address Line 3</span>
+		<input class="form-control" readonly value="@Model.Value.AddressLine3" />
+	</div>
+</div>

@@ -21,11 +21,15 @@ var table = $("table#master-table").DataTable({
 			title: "Organisation",
 			data(row) {
 				return row.organisation.organisationName;
+			},
+			createdCell(cell, cellData, rowData) {
+				const a = document.createElement("a");
+				a.innerText = cellData;
+				a.href = "/Organisation/" + rowData.organisationNumber;
+
+				cell.innerHTML = "";
+				cell.appendChild(a);
 			}
-		},
-		{
-			title: "Organisation Number",
-			data: "organisationNumber"
 		}
 	]
 });

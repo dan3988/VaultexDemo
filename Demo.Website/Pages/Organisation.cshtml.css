@@ -1,0 +1,20 @@
+﻿#grid {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-full {
+	grid-column-start: 1;
+	grid-column-end: -1;
+}
+
+.grid-left {
+	grid-column: 1 / 2;
+}
+
+.grid-right {
+	grid-column: 2 / -1;
+}
+
+.input-group-text {
+	flex: 0 0 12rem;
+}
