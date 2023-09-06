@@ -1,8 +1,17 @@
 ﻿/// <reference types="datatables.net" />
 
-var table = $("table#master-table").DataTable({
+var table = $("table#master-table")
+	.on("click", "tbody tr", function () {
+		const row = table.row(this).data();
+		if (row)
+			location = `/Organisation/${row.organisationNumber}`;
+	})
+	.DataTable({
 	data: [],
 	autoWidth: false,
+	createdRow(row) {
+		row.role = "button";
+	},
 	columns: [
 		{
 			title: "Organisation Number",
