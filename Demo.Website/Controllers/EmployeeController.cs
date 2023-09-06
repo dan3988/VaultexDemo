@@ -60,12 +60,12 @@ public sealed class EmployeeController : BaseApiController
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
 	{
-		var count = await DbContext.Employees.Where(v => v.EmployeeId == id).ExecuteDeleteAsync(cancellationToken);
-		if (count == 0)
+		var entity = await DbContext.Employees.SingleOrDefaultAsync(v => v.EmployeeId == id, cancellationToken);
+		if (entity == null)
 			return NotFound();
 
-		if (count > 1)
-			Logger.LogWarning("Deleted {count} rows when deleting by ID.", count);
+		DbContext.Remove(entity);
+		await DbContext.SaveChangesAsync(cancellationToken);
 
 		return Ok();
 	}

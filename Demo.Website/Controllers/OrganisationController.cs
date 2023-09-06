@@ -66,12 +66,12 @@ public sealed class OrganisationController : BaseApiController
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken)
 	{
-		var count = await DbContext.Organisations.Where(v => v.OrganisationNumber == id).ExecuteDeleteAsync(cancellationToken);
-		if (count == 0)
+		var entity = await DbContext.Employees.SingleOrDefaultAsync(v => v.OrganisationNumber == id, cancellationToken);
+		if (entity == null)
 			return NotFound();
 
-		if (count > 1)
-			Logger.LogWarning("Deleted {count} rows when deleting by ID.", count);
+		DbContext.Remove(entity);
+		await DbContext.SaveChangesAsync(cancellationToken);
 
 		return Ok();
 	}
