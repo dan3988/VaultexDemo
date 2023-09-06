@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddMvc().AddRazorPagesOptions(v =>
 {
 	v.Conventions.AddPageRoute("/Employees", "");
@@ -32,6 +34,16 @@ using (var context = scope.ServiceProvider.GetRequiredService<AppDbContext>())
 {
 	await context.Database.MigrateAsync();
 }
+
+app.UseSwagger(c =>
+{
+    c.RouteTemplate = "api/swagger/{documentname}/swagger.json";
+});
+
+app.UseSwaggerUI(options =>
+{
+    options.RoutePrefix = "api/swagger";
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
