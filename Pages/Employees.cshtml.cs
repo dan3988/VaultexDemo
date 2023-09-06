@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Website.Pages
 {
-	public class IndexModel : PageModel
+	public class EmployeesModel : PageModel
 	{
-		private readonly ILogger<IndexModel> _logger;
+		private readonly ILogger<EmployeesModel> _logger;
 		private readonly AppDbContext _context;
 
 		public IReadOnlyList<Employee> Employees { get; private set; } = Array.Empty<Employee>();
 
-		public IndexModel(ILogger<IndexModel> logger, AppDbContext context)
+		public EmployeesModel(ILogger<EmployeesModel> logger, AppDbContext context)
 		{
 			_logger = logger;
 			_context = context;
