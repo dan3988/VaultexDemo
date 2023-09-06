@@ -66,7 +66,7 @@ public sealed class OrganisationController : BaseApiController
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken)
 	{
-		var entity = await DbContext.Employees.SingleOrDefaultAsync(v => v.OrganisationNumber == id, cancellationToken);
+		var entity = await DbContext.Organisations.SingleOrDefaultAsync(v => v.OrganisationNumber == id, cancellationToken);
 		if (entity == null)
 			return NotFound();
 
