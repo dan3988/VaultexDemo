@@ -2,12 +2,13 @@ using Demo.Website.Data;
 
 using Microsoft.EntityFrameworkCore;
 
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddMvc().AddRazorPagesOptions(v =>
 {
 	v.Conventions.AddPageRoute("/Employees", "");
@@ -17,6 +18,21 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
 {
 	var conn = builder.Configuration.GetConnectionString("DefaultConnection");
 	opts.UseSqlServer(conn);
+});
+
+builder.Services.AddLogging(v =>
+{
+	//remove the logging providers created by WebApplication.CreateBuilder and add our own providers
+	v.ClearProviders();
+	v.AddDebug();
+
+	if (OperatingSystem.IsWindows())
+		v.AddEventLog();
+});
+
+builder.Services.AddSerilog(configuration =>
+{
+	configuration.ReadFrom.Configuration(builder.Configuration);
 });
 
 var app = builder.Build();
@@ -55,5 +71,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+
+app.UseSerilogRequestLogging();
 
 app.Run();
