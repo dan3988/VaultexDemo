@@ -8,6 +8,18 @@ on:
   pull_request:
     branches: [ "master" ]
 jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore Dependencies
+      run: dotnet restore
+    - name: Run Tests
+      run: dotnet test
   build:
     runs-on: windows-latest
     steps:
@@ -16,7 +28,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Restore dependencies
+    - name: Restore Dependencies
       run: dotnet restore
     - name: Build Website
       run: dotnet publish Demo.Website -c Release -o .build
