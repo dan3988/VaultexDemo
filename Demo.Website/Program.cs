@@ -32,7 +32,8 @@ if (!app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetRequiredService<AppDbContext>())
 {
-	await context.Database.MigrateAsync();
+	if (context.Database.IsSqlServer())
+		await context.Database.MigrateAsync();
 }
 
 app.UseSwagger(c =>
