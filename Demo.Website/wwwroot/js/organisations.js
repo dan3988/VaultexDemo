@@ -2,6 +2,7 @@
 
 var table = $("table#master-table").DataTable({
 	data: [],
+	autoWidth: false,
 	columns: [
 		{
 			title: "Organisation Number",
